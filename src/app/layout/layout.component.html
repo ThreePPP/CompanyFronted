@@ -1,0 +1,102 @@
+<div class="min-h-screen bg-gray-50 flex flex-col">
+  <!-- Navbar Row 1: Logo + User info -->
+  <header
+    class="bg-white border-b border-gray-100 px-6 h-16 flex items-center justify-between"
+  >
+    <!-- Logo -->
+    <div class="flex items-center w-64">
+      <a routerLink="../cbes/process" class="flex items-center gap-3 group">
+        <!-- Modern Abstract Icon -->
+        <div class="relative flex items-center justify-center w-10 h-10 shadow-sm rounded-xl bg-gradient-to-br from-blue-600 to-indigo-800 flex-shrink-0 overflow-hidden transform transition-transform group-hover:scale-105">
+          <div class="absolute inset-0 bg-white/20 transform -rotate-45 translate-x-3 -translate-y-4"></div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <!-- Text -->
+        <div class="leading-tight">
+          <div class="text-[17px] font-extrabold text-gray-900 tracking-tight group-hover:text-blue-700 transition-colors">CBEs Platform</div>
+          <div class="text-[11px] font-medium text-gray-500 tracking-wider uppercase mt-0.5">Management System</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- User Info -->
+    <div class="text-right text-xs text-gray-500 leading-relaxed">
+      <div>
+        ชื่อ: <span class="font-medium text-gray-700">นายทะนงคงควรตรง</span>
+      </div>
+      <div>
+        บทบาท: <span class="font-medium text-gray-700">IT/ผู้ดูแลระบบ</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navbar Row 2: Menu -->
+  <nav class="bg-white border-b border-gray-200 px-6 flex-shrink-0">
+    <div class="flex items-center gap-0 overflow-x-auto">
+      <a
+        class="text-xs text-gray-400 px-3.5 py-3 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
+      >
+        ผู้ดูแลระบบ
+      </a>
+      <a
+        class="text-xs text-gray-400 px-3.5 py-3 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
+      >
+        จัดการหลักเกณฑ์ CBEs
+      </a>
+      <a
+        class="text-xs text-gray-400 px-3.5 py-3 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
+      >
+        จัดการแผนวิสาหกิจ
+      </a>
+      <a
+        class="text-xs text-gray-400 px-3.5 py-3 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
+      >
+        จัดการแผนแม่บท
+      </a>
+      <a
+        class="text-xs text-gray-400 px-3.5 py-3 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
+      >
+        ข้อมูลตัวชี้วัด
+      </a>
+      <a
+        class="text-xs text-gray-400 px-3.5 py-3 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
+      >
+        จัดการโครงการ
+      </a>
+      <a
+        class="text-xs text-gray-400 px-3.5 py-3 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
+      >
+        รายงาน
+      </a>
+      <div class="flex-1"></div>
+      <button
+        (click)="logout()"
+        class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors cursor-pointer py-3 pl-4 border-l border-gray-100"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-3.5 h-3.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"
+          />
+        </svg>
+        ออกจากระบบ
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 overflow-auto">
+    <router-outlet />
+  </main>
+</div>
