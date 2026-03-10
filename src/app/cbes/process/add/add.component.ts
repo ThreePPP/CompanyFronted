@@ -69,6 +69,10 @@ export class AddComponent {
     this.processes[pi].topics[ti].subTopics.splice(si, 1);
   }
 
+  filterAbbreviation() {
+    this.abbreviation = this.abbreviation.replace(/[^a-zA-Z]/g, '');
+  }
+
   saveAndGoToMaturity() {
     const thaiRegex = /^[ก-๙\s]+$/;
     const englishRegex = /^[a-zA-Z\s]+$/;
@@ -94,6 +98,11 @@ export class AddComponent {
     }
     if (!this.abbreviation.trim()) {
       alert('กรุณากรอกตัวย่อ');
+      return;
+    }
+    const abbrevRegex = /^[a-zA-Z]+$/;
+    if (!abbrevRegex.test(this.abbreviation)) {
+      alert('ตัวย่อต้องเป็นภาษาอังกฤษเท่านั้น');
       return;
     }
 
@@ -125,7 +134,7 @@ export class AddComponent {
       }>(`${this.apiUrl}/Process/CreateCBEs`, body)
       .subscribe({
         next: (res) => {
-          this.router.navigate(['/cbes/process/maturity', res.data]);
+          this.router.navigate(['/cbes/process/add/maturity', res.data], { replaceUrl: true });
         },
         error: (err) => {
           alert(err.error?.message ?? 'เกิดข้อผิดพลาด');
@@ -155,6 +164,11 @@ export class AddComponent {
     }
     if (!this.abbreviation.trim()) {
       alert('กรุณากรอกตัวย่อ');
+      return;
+    }
+    const abbrevRegexSave = /^[a-zA-Z]+$/;
+    if (!abbrevRegexSave.test(this.abbreviation)) {
+      alert('ตัวย่อต้องเป็นภาษาอังกฤษเท่านั้น');
       return;
     }
 

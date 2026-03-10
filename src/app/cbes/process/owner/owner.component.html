@@ -1,0 +1,81 @@
+<div>
+
+  <!-- Page Header -->
+  <div class="mb-6 flex items-center gap-3">
+    <button (click)="goBack()"
+      class="flex items-center gap-1.5 px-3 py-2 border border-gray-200 text-sm text-gray-600 rounded-lg hover:bg-gray-50 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      กลับ
+    </button>
+    <h1 class="text-base font-semibold text-gray-800">ผู้รับผิดชอบ — {{ cbeName }}</h1>
+  </div>
+
+  <!-- CBE Info Card -->
+  <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-5 py-4 mb-5">
+    <div class="flex items-center gap-4 mb-3">
+      <label class="w-44 flex-shrink-0 text-sm text-gray-600">รอบการแก้ไข :</label>
+      <input type="text" [value]="cbeRound" readonly
+        class="w-20 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-100 cursor-not-allowed outline-none" />
+    </div>
+    <div class="flex items-start gap-4">
+      <label class="w-44 flex-shrink-0 text-sm text-gray-600 pt-2">หมายเหตุในการบันทึก :</label>
+      <textarea [value]="cbeNote" readonly rows="2"
+        class="flex-1 max-w-sm border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-100 cursor-not-allowed outline-none resize-none"></textarea>
+    </div>
+  </div>
+
+  <!-- Add Owner Form -->
+  <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-5 py-4 mb-5">
+    <h2 class="text-sm font-medium text-gray-700 mb-4">เพิ่มผู้รับผิดชอบ</h2>
+    <div class="flex items-center gap-3 flex-wrap">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-gray-500">หน่วยงาน</label>
+        <select [(ngModel)]="selectedDepartmentId"
+          class="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 outline-none focus:border-gray-400 bg-gray-50">
+          <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-gray-500">ประเภท</label>
+        <select [(ngModel)]="selectedType"
+          class="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 outline-none focus:border-gray-400 bg-gray-50">
+          <option *ngFor="let t of typeOptions" [value]="t">{{ t }}</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-transparent">เพิ่ม</label>
+        <button (click)="addOwner()"
+          class="px-4 py-2 bg-gray-800 text-white text-sm rounded-lg hover:bg-gray-700 transition-colors">
+          เพิ่ม
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Owners Table -->
+  <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-gray-50 border-b border-gray-100">
+          <th class="text-left font-medium text-gray-500 px-5 py-3.5 w-8">#</th>
+          <th class="text-left font-medium text-gray-500 px-5 py-3.5">หน่วยงาน</th>
+          <th class="text-left font-medium text-gray-500 px-5 py-3.5">ประเภท</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of owners; let i = index"
+          class="border-b border-gray-50 hover:bg-gray-50/60 transition-colors">
+          <td class="px-5 py-3.5 text-gray-400">{{ i + 1 }}</td>
+          <td class="px-5 py-3.5 text-gray-700">{{ item.departmentName }}</td>
+          <td class="px-5 py-3.5 text-gray-700">{{ item.type }}</td>
+        </tr>
+        <tr *ngIf="owners.length === 0">
+          <td colspan="3" class="px-5 py-10 text-center text-sm text-gray-400">ยังไม่มีข้อมูล</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

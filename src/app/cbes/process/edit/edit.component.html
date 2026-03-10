@@ -257,6 +257,12 @@
         ยกเลิก
       </a>
       <button
+        (click)="saveAndGoToMaturity()"
+        class="px-6 py-2 border border-gray-800 text-gray-800 text-sm rounded-lg hover:bg-gray-100 transition-colors"
+      >
+        บันทึกและไปหน้ากำหนด Maturity
+      </button>
+      <button
         (click)="save()"
         class="px-6 py-2 bg-gray-800 text-white text-sm rounded-lg hover:bg-gray-700 transition-colors"
       >

@@ -175,4 +175,46 @@ export class EditComponent implements OnInit {
       },
     });
   }
+
+  saveAndGoToMaturity() {
+    const thaiRegex = /^[ก-๙\s]+$/;
+    const englishRegex = /^[a-zA-Z\s]+$/;
+
+    if (!this.thaiTitle.trim()) { alert('กรุณากรอกหัวข้อภาษาไทย'); return; }
+    if (!thaiRegex.test(this.thaiTitle.trim())) { alert('หัวข้อภาษาไทยต้องเป็นภาษาไทยเท่านั้น'); return; }
+    if (!this.englishTitle.trim()) { alert('กรุณากรอกหัวข้อภาษาอังกฤษ'); return; }
+    if (!englishRegex.test(this.englishTitle.trim())) { alert('หัวข้อภาษาอังกฤษต้องเป็นภาษาอังกฤษเท่านั้น'); return; }
+    if (!this.abbreviation.trim()) { alert('กรุณากรอกตัวย่อ'); return; }
+    if (!this.note.trim()) { alert('กรุณากรอกหมายเหตุในการแก้ไข'); return; }
+
+    if (!confirm('ต้องการบันทึกข้อมูลหรือไม่?')) return;
+
+    const body = {
+      thaiName: this.thaiTitle,
+      name: this.englishTitle,
+      abbreviation: this.abbreviation,
+      note: this.note,
+      processes: this.processes.map((p) => ({
+        name: p.name,
+        weight: p.weight ?? 0,
+        topics: p.topics.map((t) => ({
+          name: t.name,
+          weight: t.weight ?? 0,
+          subTopics: t.subTopics.map((s) => ({
+            name: s.name,
+            weight: s.weight ?? 0,
+          })),
+        })),
+      })),
+    };
+
+    this.processService.UpdateCBE(this.cbeId, body).subscribe({
+      next: () => {
+        this.router.navigate(['/cbes/process/add/maturity', this.cbeId]);
+      },
+      error: (err: any) => {
+        alert(err.error?.message ?? 'เกิดข้อผิดพลาด');
+      },
+    });
+  }
 }

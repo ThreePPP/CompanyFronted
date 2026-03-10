@@ -1,0 +1,142 @@
+<!-- Loading -->
+<div *ngIf="loading" class="flex items-center justify-center py-20 text-sm text-gray-400">
+  กำลังโหลดข้อมูล...
+</div>
+
+<div *ngIf="!loading && cbe">
+  <!-- Title -->
+  <div class="mb-6">
+    <h1 class="text-base font-semibold text-gray-800">กำหนด Maturity Level</h1>
+  </div>
+
+  <!-- Info Card (locked) -->
+  <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-5 mb-5">
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-52 flex-shrink-0 text-sm text-gray-600">หัวข้อภาษาไทย :</label>
+      <input type="text" [value]="cbe.thaiName" readonly
+        class="flex-1 max-w-sm border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-100 cursor-not-allowed outline-none" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-52 flex-shrink-0 text-sm text-gray-600">หัวข้อภาษาอังกฤษ :</label>
+      <input type="text" [value]="cbe.name" readonly
+        class="flex-1 max-w-sm border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-100 cursor-not-allowed outline-none" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-52 flex-shrink-0 text-sm text-gray-600">ตัวย่อ :</label>
+      <input type="text" [value]="cbe.abbreviation" readonly
+        class="w-28 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-100 cursor-not-allowed outline-none" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-52 flex-shrink-0 text-sm text-gray-600">รอบการแก้ไข :</label>
+      <input type="text" [value]="cbe.round" readonly
+        class="w-20 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-100 cursor-not-allowed outline-none" />
+    </div>
+    <div class="flex items-start gap-4">
+      <label class="w-52 flex-shrink-0 text-sm text-gray-600 pt-2">หมายเหตุในการบันทึก :</label>
+      <textarea rows="3" [(ngModel)]="note"
+        placeholder="กรอกหมายเหตุในการบันทึก..."
+        class="flex-1 max-w-sm border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 outline-none focus:border-gray-400 bg-gray-50 focus:bg-white resize-none transition-colors"></textarea>
+    </div>
+  </div>
+
+  <!-- Maturity Table Card -->
+  <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-5">
+    <div class="mb-4">
+      <span class="text-sm font-medium text-gray-700">หลักเกณฑ์ :</span>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm" style="border-collapse: collapse;">
+        <thead>
+          <tr class="bg-gray-50 border border-gray-200">
+            <th class="text-left text-xs font-semibold text-gray-600 py-3 px-4 border-r border-gray-200 w-72">หลักเกณฑ์</th>
+            <th class="text-center text-xs font-semibold text-gray-600 py-3 px-3 border-r border-gray-200 w-24">น้ำหนัก</th>
+            <th class="text-left text-xs font-semibold text-gray-600 py-3 px-4">Maturity Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let process of processes">
+            <!-- Process row -->
+            <tr class="border border-gray-200 bg-blue-700">
+              <td class="py-3 px-4 font-semibold text-white text-sm border-r border-blue-500">
+                {{ process.name }}
+              </td>
+              <td class="py-3 px-3 text-center font-semibold text-white text-sm border-r border-blue-500">
+                {{ process.weight }}
+              </td>
+              <td class="py-3 px-4 text-blue-100 text-xs"></td>
+            </tr>
+
+            <ng-container *ngFor="let topic of process.topics">
+              <!-- Topic row -->
+              <tr class="border border-gray-200 bg-blue-50">
+                <td class="py-2.5 pl-7 pr-4 text-sm text-gray-700 font-medium border-r border-gray-200">
+                  {{ topic.name }}
+                </td>
+                <td class="py-2.5 px-3 text-center text-sm font-medium text-gray-600 border-r border-gray-200">
+                  {{ topic.weight }}
+                </td>
+                <td class="py-2.5 px-4"></td>
+              </tr>
+
+              <!-- SubTopic rows (each has 5 level rows) -->
+              <ng-container *ngFor="let sub of topic.subTopics">
+                <ng-container *ngFor="let lvl of levels; let i = index">
+                  <tr class="border border-gray-200">
+                    <!-- SubTopic name: only on first level row, rowspan=5 -->
+                    <td *ngIf="i === 0"
+                        [attr.rowspan]="5"
+                        class="py-3 pl-12 pr-4 align-top text-sm text-gray-600 border-r border-gray-200">
+                      {{ sub.name }}
+                    </td>
+                    <!-- Weight: only on first level row, rowspan=5 -->
+                    <td *ngIf="i === 0"
+                        [attr.rowspan]="5"
+                        class="py-3 px-3 text-center align-top text-sm text-gray-500 border-r border-gray-200">
+                      {{ sub.weight }}
+                    </td>
+                    <!-- Level label + textarea -->
+                    <td class="py-2 px-4 border-b border-gray-100 last:border-b-0">
+                      <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-gray-500 whitespace-nowrap pt-2 w-14 flex-shrink-0">ระดับ {{ lvl }} :</span>
+                        <textarea
+                          [(ngModel)]="maturityData[sub.id][i]"
+                          rows="2"
+                          [placeholder]="'กรอกคำอธิบายระดับที่ ' + lvl + '...'"
+                          class="flex-1 border border-gray-200 rounded-lg px-2.5 py-2 text-sm text-gray-800 outline-none focus:border-gray-400 bg-gray-50 focus:bg-white resize-none transition-colors"
+                        ></textarea>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <!-- Empty state -->
+          <tr *ngIf="processes.length === 0">
+            <td colspan="3" class="py-10 text-center text-sm text-gray-400 border border-gray-200">
+              ไม่พบข้อมูลกระบวนการ
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end gap-3 mt-5 pt-4 border-t border-gray-100">
+      <button
+        (click)="saveAndGoToMaturity()"
+        class="px-6 py-2 border border-gray-800 text-gray-800 text-sm rounded-lg hover:bg-gray-100 transition-colors"
+      >
+        บันทึกและไปหน้าแก้ไขหลักเกณฑ์
+      </button>
+      <button
+        (click)="save()"
+        class="px-6 py-2 bg-gray-800 text-white text-sm rounded-lg hover:bg-gray-700 transition-colors"
+      >
+        บันทึก
+      </button>
+    </div>
+  </div>
+</div>

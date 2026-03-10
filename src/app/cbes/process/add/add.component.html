@@ -14,6 +14,7 @@
     <input
       type="text"
       [(ngModel)]="thaiTitle"
+      maxlength="50"
       class="flex-1 max-w-sm border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 outline-none focus:border-gray-400 bg-gray-50 focus:bg-white transition-colors"
     />
   </div>
@@ -25,6 +26,7 @@
     <input
       type="text"
       [(ngModel)]="englishTitle"
+      maxlength="50"
       class="flex-1 max-w-sm border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 outline-none focus:border-gray-400 bg-gray-50 focus:bg-white transition-colors"
     />
   </div>
@@ -35,6 +37,7 @@
       type="text"
       [(ngModel)]="abbreviation"
       maxlength="10"
+      (input)="filterAbbreviation()"
       class="w-28 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 outline-none focus:border-gray-400 bg-gray-50 focus:bg-white transition-colors"
     />
   </div>

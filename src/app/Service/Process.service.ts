@@ -37,4 +37,36 @@ export class ProcessService {
   UpdateCBE(id: number, body: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/Process/UpdateCBEs/${id}`, body);
   }
+
+  CreateMaturity(body: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Process/CreateMaturity`, body);
+  }
+
+  PatchCBENote(id: number, note: string): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/Process/PatchCBENote/${id}`, { note });
+  }
+
+  GetMaturityByCbeId(cbeId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Process/GetMaturityByCbeId/${cbeId}`);
+  }
+
+  CreateOwner(body: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Process/CreateOwner`, body);
+  }
+
+  GetOwnersByCbeId(cbeId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Process/GetOwnersByCbeId/${cbeId}`);
+  }
+
+  CreateMaturityResponsible(body: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Process/CreateMaturityResponsible`, body);
+  }
+
+  GetDepartments(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Cbe/GetDepartments`);
+  }
+
+  CreateDepartment(name: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Cbe/CreateDepartment`, { name });
+  }
 }
